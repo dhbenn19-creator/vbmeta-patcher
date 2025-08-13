@@ -40,7 +40,12 @@ name: Patch vbmeta
 on:
   push:
     paths:
-      - 'vbmeta.img'
+      - '- name: Upload patched vbmeta
+  uses: actions/upload-artifact@v3
+  with:
+    name: vbmeta_patched.img
+    path: vbmeta.img
+
 
 jobs:
   patch:
@@ -64,3 +69,5 @@ jobs:
         with:
           name: vbmeta_patched.img
           path: vbmeta.img
+          path: vbmeta.img
+fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img
